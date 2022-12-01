@@ -20,7 +20,7 @@ This tool is based upon [Psi](https://github.com/Th30neAnd0nly/Psi) .This is a t
 1. Clone the repo using `git clone https://github.com/Th30neAnd0nly/TrackDown`
 1. `cd TrackDown`
 1. Create a environment variable in `.env` file named `bot` and put your telegram bot token as it's value.
-1. Replace your website URL at [index.js](https://github.com/Th30neAnd0nly/TrackDown/blob/67135350a5b83cdd3395e4887ed6504e83de7b45/index.js#L15)
+1. Replace your website URL at [index.js](https://github.com/Th30neAnd0nly/TrackDown/blob/8d2b963bc96d34282589d47240a9db56b5ce79f5/index.js#L15)
 1. Run `npm install`
 1. Afterwards `npm start`
 1. Your Bot is now online.
