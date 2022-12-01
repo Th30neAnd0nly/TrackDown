@@ -12,7 +12,7 @@ app.use(urlencodedParser);
 app.set("view engine", "ejs");
 
 //Modify your URL here
-var hostURL="https://nsss.repl.co"
+var hostURL="YOUR URL"
 
 
 
