@@ -1,0 +1,25 @@
+{
+  "name": "TrackDown",
+  "version": "1.0.0",
+  "description": "Track Down People just through a link",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js"
+   },
+  "keywords": [],
+  "author": {
+   "name" : "Prateek Chaubey",
+   "url" : "https://git.io/prateek"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@types/node": "^18.0.6",
+    "base64-to-image": "^1.0.2",
+    "body-parser": "^1.20.1",
+    "ejs": "^3.1.8",
+    "express": "^4.18.2",
+    "node-fetch": "^3.2.6",
+    "node-telegram-bot-api": "^0.60.0"
+  }
+}
