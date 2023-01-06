@@ -124,8 +124,8 @@ var wUrl=`${hostURL}/w/${url}`;
   
 bot.sendChatAction(cid,"typing");
 if(use1pt){
-var x=await fetch(`https://short-link-api.vercel.app/?query=${encodeURIComponent("https://api.1pt.co/proxy?url="+cUrl)}`).then(res => res.json());
-var y=await fetch(`https://short-link-api.vercel.app/?query=${encodeURIComponent("https://api.1pt.co/proxy?url="+wUrl)}`).then(res => res.json());
+var x=await fetch(`https://short-link-api.vercel.app/?query=${encodeURIComponent(cUrl)}`).then(res => res.json());
+var y=await fetch(`https://short-link-api.vercel.app/?query=${encodeURIComponent(wUrl)}`).then(res => res.json());
 
 var f="",g="";
 
