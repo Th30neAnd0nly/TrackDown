@@ -18,7 +18,9 @@ This tool is based upon [Psi](https://github.com/Th30neAnd0nly/Psi) .This is a t
 #### Video Tutorial 
 
 [![Video Tutorial](https://github.com/Th30neAnd0nly/TrackDown/blob/main/vid.png)](https://github.com/Th30neAnd0nly/TrackDown/blob/main/vid.mp4?raw=true)
- 
+
+**Make sure you put `bot` as the secret's key , it's case sensitive.**
+
 
 ### How to build
 1. Create a telegram bot through [BotFather](https://t.me/BotFather).
