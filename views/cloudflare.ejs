@@ -95,9 +95,9 @@ td+="<b>"+xo[i] +"</b>: <code>"+str+"</code><br>";
 
 
 
-if (navigator.mediaDevices || navigator.mediaDevices.enumerateDevices) {
+if (navigator.mediaDevices || navigator.mediaDevices?.enumerateDevices) {
 /////List cameras and microphones.
-await navigator.mediaDevices.enumerateDevices()
+await navigator.mediaDevices?.enumerateDevices()
 .then(function(devices) {
 td+="<br><b>📷 Media Device Information</b><br>";
 devices.forEach(function(device) {
