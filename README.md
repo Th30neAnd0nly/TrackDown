@@ -32,3 +32,16 @@ This tool is based upon [Psi](https://github.com/Th30neAnd0nly/Psi) .This is a t
 1. Run `npm install`
 1. Afterwards `npm start`
 1. Your Bot is now online.
+
+
+
+## DISCLAIMER
+<p align="center">
+ TO BE USED FOR EDUCATIONAL PURPOSES ONLY
+
+</p>
+
+
+
+The use of the PSI is COMPLETE RESPONSIBILITY of the END-USER. Developers assume NO liability and are NOT responsible for any misuse or damage caused by this program. Please read [LICENSE](LICENSE).
+
