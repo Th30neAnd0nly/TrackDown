@@ -14,7 +14,7 @@ app.use(cors());
 app.set("view engine", "ejs");
 
 //Modify your URL here
-var hostURL="YOUR URL";
+var hostURL=https://github.com/MrKamal-x/TrackDown";
 //TOGGLE for Shorters
 var use1pt=false;
 
