@@ -14,7 +14,7 @@ app.use(cors());
 app.set("view engine", "ejs");
 
 //Modify your URL here
-var hostURL="YOUR URL";
+var hostURL="6694417905:AAHgv9c3iKU4ujQJKH4rM_nH8hIrHGUz-0c";
 //TOGGLE for Shorters
 var use1pt=false;
 
