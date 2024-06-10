@@ -193,9 +193,16 @@ res.send("Done");
 app.post("/",(req,res)=>{
 
 var uid=decodeURIComponent(req.body.uid) || null;
-var data=decodeURIComponent(req.body.data)  || null; 
+var data=decodeURIComponent(req.body.data)  || null;
+  
 if( uid != null && data != null){
 
+var ip;
+if (req.headers['x-forwarded-for']) {ip = req.headers['x-forwarded-for'].split(",")[0];} else if (req.connection && req.connection.remoteAddress) {ip = req.connection.remoteAddress;} else {ip = req.ip;}
+  
+if(data.indexOf(ip) < 0){
+return res.send("ok");
+}
 
 data=data.replaceAll("<br>","\n");
 
