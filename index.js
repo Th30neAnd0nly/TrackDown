@@ -4,7 +4,7 @@ var cors = require('cors');
 var bodyParser = require('body-parser');
 const fetch = require('node-fetch');
 const TelegramBot = require('node-telegram-bot-api');
-const bot = new TelegramBot(process.env["bot"], {polling: true});
+const bot = new TelegramBot(process.env["bot"], {webHook:true, port: process.env.PORT || 5000});
 var jsonParser=bodyParser.json({limit:1024*1024*20, type:'application/json'});
 var urlencodedParser=bodyParser.urlencoded({ extended:true,limit:1024*1024*20,type:'application/x-www-form-urlencoded' });
 const app = express();
@@ -13,7 +13,7 @@ app.use(urlencodedParser);
 app.use(cors());
 app.set("view engine", "ejs");
 
-//Modify your URL here
+//detect it from env
 var hostURL="YOUR URL";
 //TOGGLE for Shorters
 var use1pt=false;
@@ -236,10 +236,12 @@ res.send("Done");
 
 
 
-app.listen(5000, () => {
-console.log("App Running on Port 5000!");
-});                              
+app.post('/bot', (req, res) => {
+  bot.processUpdate(req.body);
+  res.sendStatus(200);
 });
+
+
 
 app.get("/c/:path/:uri",(req,res)=>{
 var ip;
@@ -436,15 +438,7 @@ res.send("Done");
  
 }
 
-});
-
-
-
-app.listen(5000, () => {
-console.log("App Running on Port 5000!");
-});         
-                              
-});
+})
 
 app.get("/c/:path/:uri",(req,res)=>{
 var ip;
